@@ -1,5 +1,5 @@
 from typing import List
-from datetime import date
+from datetime import datetime
 from app.db import engine
 
 import pandas as pd
@@ -13,16 +13,16 @@ class ArticulosService:
     def get_articulo(cls, start_date: str, end_date: str) -> List[ArticulosSchema]:
         
         # Ingresar fechas
-        fecha_inicio = input("Ingrese la fecha de inicio (YYYY-MM-DD): ")
-        fecha_fin = input("Ingrese la fecha de fin (YYYY-MM-DD): ")
+        start_date = input("Ingrese la fecha de inicio (YYYY-MM-DD): ")
+        end_date = input("Ingrese la fecha de fin (YYYY-MM-DD): ")
         
-        fecha_inicio = fecha_inicio.replace("-", "")[:6]
-        fecha_fin = fecha_fin.replace("-", "")[:6]
+        start_date = start_date.replace("-", "")[:6]
+        end_date = end_date.replace("-", "")[:6]
         
         query = f"""
             SELECT CODARTICULO, SUM(UNIDADES) as TOTAL_UNIDADES
             FROM VENTASACUMULADAS
-            WHERE ANYOMES >= '{fecha_inicio}' AND ANYOMES <= '{fecha_fin}'
+            WHERE ANYOMES >= '{start_date}' AND ANYOMES <= '{end_date}'
             GROUP BY CODARTICULO
             ORDER BY TOTAL_UNIDADES DESC
         """

@@ -37,3 +37,4 @@ df = pd.read_sql_query(consulta_sql, engine, params={"cedula": cedula, "fecha_de
 
 # %%
 print(df)
+# %%

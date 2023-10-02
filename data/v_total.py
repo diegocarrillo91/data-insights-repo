@@ -7,10 +7,14 @@ import matplotlib.pyplot as plt
 # %% 
 engine = create_engine('mssql+pyodbc://DESKTOP-BSJPEV6\SQLEXPRESS/LA_DORADA?driver=ODBC+Driver+17+for+SQL+Server')
 
+# %%
+start_date = input("Ingrese la fecha de inicio (YYYY-MM-DD): ")
+end_date = input("Ingrese la fecha de fin (YYYY-MM-DD): ")
 # %% 
-sql = """
+sql = f"""
     SELECT [FECHA], [TOTALNETO]
     FROM [LA_DORADA].[dbo].[FACTURASVENTA]
+    WHERE [FECHA] BETWEEN '{start_date}' AND '{end_date}'
 """
 
 # %% 
@@ -27,5 +31,7 @@ plt.figure(figsize=(12, 6))
 ventas_por_mes.plot(kind='line', xlabel='Fecha', ylabel='Ventas', title='Tendencias de Ventas a lo largo del Tiempo')
 plt.grid(True)
 plt.show()
+
+print(ventas_por_mes)
 
 # %%

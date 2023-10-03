@@ -21,8 +21,7 @@ class VentaPorMesService:
         
         df_ventas['FECHA'] = pd.to_datetime(df_ventas['FECHA'])
         
-        ventas_por_mes = df_ventas.groupby(df_ventas['FECHA'].dt.to_period("M"))['TOTALNETO'].sum()
-        
+        ventas_por_mes = df_ventas.groupby(df_ventas['FECHA'].dt.to_period("M"))['TOTALNETO'].sum().reset_index()
         resultados = []
         
         for index, row in ventas_por_mes.iterrows():

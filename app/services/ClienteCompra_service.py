@@ -13,17 +13,12 @@ class ClienteCompraService:
     @classmethod
     def get_compras_cliente(cls):
         query = text("""
-            SELECT CLIENTES.NIF20 AS Cedula,
+            SELECT
+                CLIENTES.NIF20 AS Cedula,
                 CLIENTES.NOMBRECLIENTE AS Nombre,
-                SUM(
-                    CASE
-                        WHEN DTO <> 0 THEN ROUND(ALBVENTALIN.UNID1 * (PRECIOIVA - (PRECIOIVA * DTO / 100)), 0)
-                        ELSE ROUND(ALBVENTALIN.UNID1 * (PRECIOIVA * DTO / 100), 0)
-                    END
-                ) AS ImporteTotal,
+                SUM(ALBVENTACAB.TOTALNETO) AS ImporteTotal,
                 MAX(ALBVENTACAB.FECHA) AS UltimaCompra
-            FROM ALBVENTALIN
-            INNER JOIN ALBVENTACAB ON ALBVENTALIN.NUMSERIE = ALBVENTACAB.NUMSERIE AND ALBVENTALIN.NUMALBARAN = ALBVENTACAB.NUMALBARAN
+            FROM ALBVENTACAB
             INNER JOIN CLIENTES ON CLIENTES.CODCLIENTE = ALBVENTACAB.CODCLIENTE
             WHERE CLIENTES.DESCATALOGADO <> 'T'
             GROUP BY CLIENTES.NIF20, CLIENTES.NOMBRECLIENTE

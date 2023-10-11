@@ -4,6 +4,7 @@ from .articulos_route import router as articulos_router
 from .VentaMes_route import router as VentaMes_router
 from .cliente_route import router as cliente_router
 from .ClienteCompra_route import router as cliente_compra_router
+from .stock_route import router as stock_router
 
 urls = [
     user_router,
@@ -12,4 +13,5 @@ urls = [
     VentaMes_router,
     cliente_router,
     cliente_compra_router,
+    stock_router,
 ]

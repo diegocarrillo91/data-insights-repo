@@ -8,5 +8,3 @@ class ArticulosController:
     
     def get_articulo(cls, start_date: str, end_date: str) -> List[ArticulosSchema]:
         return ArticulosService.get_articulo(start_date, end_date)
-
-
